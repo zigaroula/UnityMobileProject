@@ -15,7 +15,7 @@ public class TestMove : MonoBehaviour {
 			float x = touch.position.x / Screen.width;
 			float y = touch.position.y / Screen.height;
 			if (y <= 0.9) {
-				transform.Translate ((x > 0.5f ? 1 : -1) * 0.1f, 0, 0);
+				transform.Translate ((x > 0.5f ? 1 : -1) * 0.1f * GlobalVar.GameSpeed, 0, 0);
 			}
 		}
 		ClampPositionToScreen ();
