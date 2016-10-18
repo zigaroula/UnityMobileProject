@@ -1,11 +1,17 @@
 fileFormatVersion: 2
 guid: b10384265d9534a4ba15e42d40010bee
-timeCreated: 1476721597
+timeCreated: 1476800396
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - cubePrefab: {fileID: 1000013268862290, guid: da55393bba7e9d7419657e51f56a5099,
+      type: 2}
+  - obstacle1: {fileID: 1000012687342458, guid: 3ca84220668c6104182c4a7213c5d68a,
+      type: 2}
+  - obstacle2: {fileID: 1000011447966112, guid: 1cf5c1f57cc976d48a87872b30e7647c,
+      type: 2}
+  - obstacle3: {fileID: 1000013893264712, guid: ab070744ee1b7cd40be1ec2ebf22f6d2,
       type: 2}
   executionOrder: 0
   icon: {instanceID: 0}

@@ -1,13 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TestMove : MonoBehaviour {
+public class ShipMove : MonoBehaviour {
+
+	public float MovementSpeed;
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
-	
+
+	// Using keyboard for debugging purposes
+	void Update() {
+		if (Input.GetKey ("left")) {
+			transform.Translate (-MovementSpeed * GlobalVar.GameSpeed, 0, 0);
+		} else if (Input.GetKey ("right")) {
+			transform.Translate (MovementSpeed * GlobalVar.GameSpeed, 0, 0);
+		}
+		ClampPositionToScreen ();
+	}
+
+	private void ClampPositionToScreen() {
+		Vector3 pos = transform.position;
+		pos.x =  Mathf.Clamp(transform.position.x, -3.0f, 3.0f);
+		transform.position = pos;
+	}
+
+	/*
 	// Update is called once per frame
 	void Update () {
 		if (Input.touchCount == 1) {
@@ -26,4 +45,5 @@ public class TestMove : MonoBehaviour {
 		pos.x =  Mathf.Clamp(transform.position.x, -3.0f, 3.0f);
 		transform.position = pos;
 	}
+	*/
 }

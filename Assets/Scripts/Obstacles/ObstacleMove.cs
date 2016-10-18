@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CubeMove : MonoBehaviour {
+public class ObstacleMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
