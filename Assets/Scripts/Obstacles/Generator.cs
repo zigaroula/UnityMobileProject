@@ -2,17 +2,11 @@
 using System.Collections;
 
 public class Generator : MonoBehaviour {
-
-	public GameObject obstacle1;
-	public GameObject obstacle2;
-	public GameObject obstacle3;
-
+	
 	private GameObject[] obstacles;
 	private float[] obstaclesProbabilities;
 	private int iteration;
 	private int obstacleNumber;
-
-	private GameObject[] instantiatedObstacles;
 
 	// Use this for initialization
 	void Start () {
@@ -21,28 +15,23 @@ public class Generator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		instantiatedObstacles = GameObject.FindGameObjectsWithTag ("Obstacle");
 		bool newObstacleRequired = true;
-		foreach (GameObject obstacle in instantiatedObstacles) {
-			if (obstacle.transform.position.y >= -5) {
+		foreach (GameObject obstacle in obstacles) {
+			float y = obstacle.transform.position.y;
+			if (y >= -5 && y <= 20) {
 				newObstacleRequired = false;
 				break;
 			}
 		}
 		if (newObstacleRequired) {
-			Instantiate (PickOneObstacle ());
+			PickOneObstacle ().GetComponent<ObstacleMove> ().StartMoving ();
 		}
-
-		GlobalVar.GameSpeed += 0.001f;
 	}
 
 	public void InitializeGenerator() {
-		obstacles = new GameObject[3];
-		obstaclesProbabilities = new float[3];
-		obstacles [0] = obstacle1;
-		obstacles [1] = obstacle2;
-		obstacles [2] = obstacle3;
+		obstacles = GameObject.FindGameObjectsWithTag ("Obstacle");
 		obstacleNumber = obstacles.Length;
+		obstaclesProbabilities = new float[obstacleNumber];
 		for (int i = 0 ; i < obstacleNumber ; i++) {
 			obstaclesProbabilities [i] = 1.0f;
 		}

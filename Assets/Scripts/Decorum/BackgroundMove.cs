@@ -9,7 +9,8 @@ public class BackgroundMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (0, 0, -0.05f * GlobalVar.GameSpeed);
+		float speed = GameManager.manager.GameSpeed;
+		transform.Translate (0, 0, -0.05f * speed);
 		if (transform.position.y <= -26) {
 			transform.position = new Vector3(transform.position.x, transform.position.y + GetComponent<Renderer>().bounds.size.y*2, transform.position.z);
 		}

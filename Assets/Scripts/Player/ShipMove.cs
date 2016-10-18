@@ -12,10 +12,11 @@ public class ShipMove : MonoBehaviour {
 
 	// Using keyboard for debugging purposes
 	void Update() {
+		float speed = GameManager.manager.GameSpeed;
 		if (Input.GetKey ("left")) {
-			transform.Translate (-MovementSpeed * GlobalVar.GameSpeed, 0, 0);
+			transform.Translate (-MovementSpeed * speed, 0, 0);
 		} else if (Input.GetKey ("right")) {
-			transform.Translate (MovementSpeed * GlobalVar.GameSpeed, 0, 0);
+			transform.Translate (MovementSpeed * speed, 0, 0);
 		}
 		ClampPositionToScreen ();
 	}
@@ -38,12 +39,6 @@ public class ShipMove : MonoBehaviour {
 			}
 		}
 		ClampPositionToScreen ();
-	}
-
-	private void ClampPositionToScreen() {
-		Vector3 pos = transform.position;
-		pos.x =  Mathf.Clamp(transform.position.x, -3.0f, 3.0f);
-		transform.position = pos;
 	}
 	*/
 }
