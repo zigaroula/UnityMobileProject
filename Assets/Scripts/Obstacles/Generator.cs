@@ -15,16 +15,18 @@ public class Generator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		bool newObstacleRequired = true;
-		foreach (GameObject obstacle in obstacles) {
-			float y = obstacle.transform.position.y;
-			if (y >= -5 && y <= 20) {
-				newObstacleRequired = false;
-				break;
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
+			bool newObstacleRequired = true;
+			foreach (GameObject obstacle in obstacles) {
+				float y = obstacle.transform.position.y;
+				if (y >= -10 && y <= 20) {
+					newObstacleRequired = false;
+					break;
+				}
 			}
-		}
-		if (newObstacleRequired) {
-			PickOneObstacle ().GetComponent<ObstacleMove> ().StartMoving ();
+			if (newObstacleRequired) {
+				PickOneObstacle ().GetComponent<ObstacleMove> ().StartMoving ();
+			}
 		}
 	}
 
@@ -36,6 +38,12 @@ public class Generator : MonoBehaviour {
 			obstaclesProbabilities [i] = 1.0f;
 		}
 		iteration = 1;
+	}
+
+	public void InitializeObstacles() {
+		foreach (GameObject obstacle in obstacles) {
+			obstacle.GetComponent<ObstacleMove> ().InitializeObstacle ();
+		}
 	}
 
 	private GameObject PickOneObstacle() {
@@ -53,7 +61,7 @@ public class Generator : MonoBehaviour {
 				pmin = prob;
 				pmax = prob + obstaclesProbabilities [i];
 			}
-			if (randomNumber >= pmin && randomNumber < pmax) { // FIXME : MAY BE BUGGED
+			if ((randomNumber >= pmin && randomNumber < pmax && pmax != iteration*obstacleNumber) || (randomNumber >= pmin && randomNumber <= pmax && pmax == iteration*obstacleNumber)) { // FIXME : MAY BE BUGGED
 				for (int j = 0; j < obstacleNumber; j++) {
 					obstaclesProbabilities [j] += 1.0f;
 				}

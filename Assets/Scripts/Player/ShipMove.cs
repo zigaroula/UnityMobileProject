@@ -4,27 +4,34 @@ using System.Collections;
 public class ShipMove : MonoBehaviour {
 
 	public float MovementSpeed;
+	private Vector3 initialPosition;
 
 	// Use this for initialization
 	void Start () {
-
+		initialPosition = transform.position;
 	}
 
 	// Using keyboard for debugging purposes
 	void Update() {
-		float speed = GameManager.manager.GameSpeed;
-		if (Input.GetKey ("left")) {
-			transform.Translate (-MovementSpeed * speed, 0, 0);
-		} else if (Input.GetKey ("right")) {
-			transform.Translate (MovementSpeed * speed, 0, 0);
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
+			float speed = GameManager.manager.GetGameSpeed();
+			if (Input.GetKey ("left")) {
+				transform.Translate (-MovementSpeed * speed, 0, 0);
+			} else if (Input.GetKey ("right")) {
+				transform.Translate (MovementSpeed * speed, 0, 0);
+			}
+			ClampPositionToScreen ();
 		}
-		ClampPositionToScreen ();
 	}
 
 	private void ClampPositionToScreen() {
 		Vector3 pos = transform.position;
 		pos.x =  Mathf.Clamp(transform.position.x, -3.0f, 3.0f);
 		transform.position = pos;
+	}
+
+	public void InitializeShip() {
+		transform.position = new Vector3 (initialPosition.x, initialPosition.y, initialPosition.z);
 	}
 
 	/*
