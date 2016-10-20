@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
@@ -14,25 +15,31 @@ public class UIManager : MonoBehaviour {
 	public GameObject ScoreText;
 	public GameObject ScoreGOText;
 	*/
-	public GameObject MenuUI;
-	public GameObject GameUI;
-	public GameObject PauseUI;
-	public GameObject GameOverUI;
+	private GameObject[] menuUI;
+	private GameObject[] gameUI;
+	private GameObject[] pauseUI;
+	private GameObject[] gameOverUI;
+	public GameObject ScoreText;
+	public GameObject HighestScoreText;
 
 	void Start() {
-		MenuUI.SetActive (true);
-		GameUI.SetActive (false);
-		PauseUI.SetActive (false);
-		GameOverUI.SetActive (false);
+		menuUI = GameObject.FindGameObjectsWithTag ("MenuUI");
+		gameUI = GameObject.FindGameObjectsWithTag ("GameUI");
+		pauseUI = GameObject.FindGameObjectsWithTag ("PauseUI");
+		gameOverUI = GameObject.FindGameObjectsWithTag ("GameOverUI");
+		ShowUI (menuUI);
+		HideUI (gameUI);
+		HideUI (pauseUI);
+		HideUI (gameOverUI);
 	}
 
 	void Update() {
-
+		
 	}
 
 	public void GameOver() { // Game -> GameOver
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
-			GameOverUI.SetActive (true);
+			ShowUI (gameOverUI);
 		}
 	}
 
@@ -40,31 +47,52 @@ public class UIManager : MonoBehaviour {
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Menu ||
 			GameManager.manager.GetCurrentGameState () == GameManager.GameState.Pause ||
 			GameManager.manager.GetCurrentGameState () == GameManager.GameState.GameOver) {
-			MenuUI.SetActive (false);
-			PauseUI.SetActive (false);
-			GameOverUI.SetActive (false);
-			GameUI.SetActive (true);
+			HideUI (menuUI);
+			HideUI (pauseUI);
+			HideUI (gameOverUI);
+			ShowUI (gameUI);
 		}
 	}
 
 	public void PauseGame() { // Game -> Pause
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
-			PauseUI.SetActive (true);
+			ShowUI (pauseUI);
 		}
 	}
 
 	public void UnpauseGame() { // Pause -> Game
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Pause) {
-			PauseUI.SetActive (false);
+			HideUI (pauseUI);
 		}
 	}
 
 	public void GoToMenu() { // [Pause, GameOver] -> Menu
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Pause ||
 			GameManager.manager.GetCurrentGameState () == GameManager.GameState.GameOver) {
-			PauseUI.SetActive (false);
-			GameOverUI.SetActive (false);
-			MenuUI.SetActive (true);
+			HideUI (pauseUI);
+			HideUI (gameOverUI);
+			HideUI (gameUI);
+			ShowUI (menuUI);
+		}
+	}
+
+	public void UpdateScore(int score) {
+		ScoreText.GetComponent<Text> ().text = "Score : " + score;
+	}
+
+	public void UpdateHighestScore(int score) {
+		HighestScoreText.GetComponent<Text> ().text = "Highest Score : " + score;
+	}
+
+	private void ShowUI(GameObject[] arrayUI) {
+		foreach (GameObject element in arrayUI) {
+			element.SetActive (true);
+		}
+	}
+
+	private void HideUI(GameObject[] arrayUI) {
+		foreach (GameObject element in arrayUI) {
+			element.SetActive (false);
 		}
 	}
 }

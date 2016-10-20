@@ -11,14 +11,35 @@ public class ShipMove : MonoBehaviour {
 		initialPosition = transform.position;
 	}
 
+	// Update is called once per frame
+	void Update () {
+		KeyboardDebug ();
+		//TouchControl();
+	}
+
 	// Using keyboard for debugging purposes
-	void Update() {
+	private void KeyboardDebug() {
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
 			float speed = GameManager.manager.GetGameSpeed();
 			if (Input.GetKey ("left")) {
 				transform.Translate (-MovementSpeed * speed, 0, 0);
 			} else if (Input.GetKey ("right")) {
 				transform.Translate (MovementSpeed * speed, 0, 0);
+			}
+			ClampPositionToScreen ();
+		}
+	}
+
+	private void TouchControl() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
+			if (Input.touchCount == 1) {
+				Touch touch = Input.GetTouch (0);
+				float x = touch.position.x / Screen.width;
+				float y = touch.position.y / Screen.height;
+				float speed = GameManager.manager.GetGameSpeed();
+				if (y <= 0.9) {
+					transform.Translate ((x > 0.5f ? 1 : -1) * MovementSpeed * speed, 0, 0);
+				}
 			}
 			ClampPositionToScreen ();
 		}
@@ -33,19 +54,4 @@ public class ShipMove : MonoBehaviour {
 	public void InitializeShip() {
 		transform.position = new Vector3 (initialPosition.x, initialPosition.y, initialPosition.z);
 	}
-
-	/*
-	// Update is called once per frame
-	void Update () {
-		if (Input.touchCount == 1) {
-			Touch touch = Input.GetTouch (0);
-			float x = touch.position.x / Screen.width;
-			float y = touch.position.y / Screen.height;
-			if (y <= 0.9) {
-				transform.Translate ((x > 0.5f ? 1 : -1) * 0.1f * GlobalVar.GameSpeed, 0, 0);
-			}
-		}
-		ClampPositionToScreen ();
-	}
-	*/
 }
