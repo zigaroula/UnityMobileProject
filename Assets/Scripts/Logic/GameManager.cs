@@ -3,14 +3,17 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 	
-	public float currentGameSpeed = 1.0f;
+	private float currentGameSpeed = 1.0f;
 	private float lastGameSpeed;
+	private float currentScore;
 
 	public enum GameState {Menu, Game, Pause, GameOver};
 	private GameState currentState;
 
 	private GameObject generator;
 	private GameObject ship;
+
+	private UIManager uimanager;
 
 	public static GameManager manager;
 
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour {
 		currentState = GameState.Menu;
 		generator = GameObject.FindGameObjectWithTag ("Generator");
 		ship = GameObject.FindGameObjectWithTag ("Ship");
+		uimanager = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<UIManager> ();
 	}
 
 	void Update () {
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour {
 		if (currentState == GameState.Game) {
 			lastGameSpeed = currentGameSpeed;
 			currentGameSpeed = 0.1f;
+			uimanager.GameOver ();
 			currentState = GameState.GameOver;
 		}
 	}
@@ -43,18 +48,21 @@ public class GameManager : MonoBehaviour {
 			currentGameSpeed = 1.0f;
 			generator.GetComponent<Generator> ().InitializeObstacles ();
 			ship.GetComponent<ShipMove> ().InitializeShip ();
+			uimanager.StartGame ();
 			currentState = GameState.Game;
 		}
 	}
 
 	public void PauseGame() { // Game -> Pause
 		if (currentState == GameState.Game) {
+			uimanager.PauseGame ();
 			currentState = GameState.Pause;
 		}
 	}
 
 	public void UnpauseGame() { // Pause -> Game
 		if (currentState == GameState.Pause) {
+			uimanager.UnpauseGame ();
 			currentState = GameState.Game;
 		}
 	}
@@ -64,6 +72,7 @@ public class GameManager : MonoBehaviour {
 			currentGameSpeed = 1.0f;
 			generator.GetComponent<Generator> ().InitializeObstacles ();
 			ship.GetComponent<ShipMove> ().InitializeShip ();
+			uimanager.GoToMenu ();
 			currentState = GameState.Menu;
 		}
 	}
