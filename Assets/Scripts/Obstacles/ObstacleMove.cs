@@ -5,6 +5,7 @@ public class ObstacleMove : MonoBehaviour {
 
 	private bool moving;
 	private Vector3 initialPosition;
+	public float ObstacleHeight;
 
 	// Use this for initialization
 	void Start () {
@@ -16,21 +17,21 @@ public class ObstacleMove : MonoBehaviour {
 	void Update () {
 		if (moving && (GameManager.manager.GetCurrentGameState() == GameManager.GameState.Game || GameManager.manager.GetCurrentGameState() == GameManager.GameState.GameOver)) {
 			float speed = GameManager.manager.GetGameSpeed();
-			float y = transform.position.y;
+			float obstacleTop = transform.position.y + (ObstacleHeight / 2);
 			transform.Translate (0, -0.1f * speed, 0);
-			if (y < -10) {
+			if (obstacleTop < -12) {
 				StopMoving ();
 			}
 		}
 	}
 
 	public void StartMoving() {
-		transform.position = new Vector3 (transform.position.x, 10, transform.position.z);
+		transform.position = new Vector3 (transform.position.x, 12 + (ObstacleHeight / 2), transform.position.z);
 		moving = true;
 	}
 
 	public void StopMoving() {
-		transform.position = new Vector3 (transform.position.x, 25, transform.position.z);
+		transform.position = new Vector3 (initialPosition.x, initialPosition.y, initialPosition.z);
 		moving = false;
 	}
 
