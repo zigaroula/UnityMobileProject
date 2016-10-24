@@ -13,8 +13,10 @@ public class ShipMove : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		KeyboardDebug ();
+		//KeyboardDebug ();
 		//TouchControl();
+		AlternateKeyboardDebug();
+		//AlternateTouchControl();
 	}
 
 	// Using keyboard for debugging purposes
@@ -30,6 +32,18 @@ public class ShipMove : MonoBehaviour {
 		}
 	}
 
+	private void AlternateKeyboardDebug() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
+			float x = Input.mousePosition.x / Screen.width;
+			float y = Input.mousePosition.y / Screen.height;
+			float speed = GameManager.manager.GetGameSpeed();
+			float xVelocity = 0.0f;
+			float targetPosition = Mathf.SmoothDamp (transform.position.x, (x * 6.0f) - 3.0f, ref xVelocity, 0.1f/speed);
+			transform.position = new Vector3 (targetPosition, transform.position.y, transform.position.z);
+			ClampPositionToScreen ();
+		}
+	}
+
 	private void TouchControl() {
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
 			if (Input.touchCount == 1) {
@@ -40,6 +54,21 @@ public class ShipMove : MonoBehaviour {
 				if (y <= 0.9) {
 					transform.Translate ((x > 0.5f ? 1 : -1) * MovementSpeed * speed, 0, 0);
 				}
+			}
+			ClampPositionToScreen ();
+		}
+	}
+
+	private void AlternateTouchControl() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
+			if (Input.touchCount == 1) {
+				Touch touch = Input.GetTouch (0);
+				float x = touch.position.x / Screen.width;
+				float y = touch.position.y / Screen.height;
+				float speed = GameManager.manager.GetGameSpeed();
+				float xVelocity = 0.0f;
+				float targetPosition = Mathf.SmoothDamp (transform.position.x, (x * 6.0f) - 3.0f, ref xVelocity, 0.1f/speed);
+				transform.position = new Vector3 (targetPosition, transform.position.y, transform.position.z);
 			}
 			ClampPositionToScreen ();
 		}
