@@ -17,6 +17,7 @@ public class ShipMove : MonoBehaviour {
 		//TouchControl();
 		AlternateKeyboardDebug();
 		//AlternateTouchControl();
+		ClampPositionToScreen ();
 	}
 
 	// Using keyboard for debugging purposes
@@ -28,7 +29,6 @@ public class ShipMove : MonoBehaviour {
 			} else if (Input.GetKey ("right")) {
 				transform.Translate (MovementSpeed * speed, 0, 0);
 			}
-			ClampPositionToScreen ();
 		}
 	}
 
@@ -38,9 +38,12 @@ public class ShipMove : MonoBehaviour {
 			float y = Input.mousePosition.y / Screen.height;
 			float speed = GameManager.manager.GetGameSpeed();
 			float xVelocity = 0.0f;
-			float targetPosition = Mathf.SmoothDamp (transform.position.x, (x * 6.0f) - 3.0f, ref xVelocity, 0.1f/speed);
-			transform.position = new Vector3 (targetPosition, transform.position.y, transform.position.z);
-			ClampPositionToScreen ();
+			float currentX = transform.position.x;
+			float finalX = (x * 6.0f) - 3.0f;
+			float targetX = Mathf.SmoothDamp (currentX, finalX, ref xVelocity, 0.1f/speed);
+			transform.position = new Vector3 (targetX, transform.position.y, transform.position.z);
+			float rotationAngle = 90.0f * (currentX-finalX)/6.0f;
+			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, rotationAngle, transform.eulerAngles.z);
 		}
 	}
 
@@ -55,7 +58,6 @@ public class ShipMove : MonoBehaviour {
 					transform.Translate ((x > 0.5f ? 1 : -1) * MovementSpeed * speed, 0, 0);
 				}
 			}
-			ClampPositionToScreen ();
 		}
 	}
 
@@ -67,20 +69,26 @@ public class ShipMove : MonoBehaviour {
 				float y = touch.position.y / Screen.height;
 				float speed = GameManager.manager.GetGameSpeed();
 				float xVelocity = 0.0f;
-				float targetPosition = Mathf.SmoothDamp (transform.position.x, (x * 6.0f) - 3.0f, ref xVelocity, 0.1f/speed);
-				transform.position = new Vector3 (targetPosition, transform.position.y, transform.position.z);
+				float currentX = transform.position.x;
+				float finalX = (x * 6.0f) - 3.0f;
+				float targetX = Mathf.SmoothDamp (currentX, finalX, ref xVelocity, 0.1f/speed);
+				transform.position = new Vector3 (targetX, transform.position.y, transform.position.z);
+				float rotationAngle = 90.0f * (currentX-finalX);
+				transform.eulerAngles = new Vector3 (transform.eulerAngles.x, rotationAngle, transform.eulerAngles.z);
 			}
-			ClampPositionToScreen ();
 		}
 	}
 
 	private void ClampPositionToScreen() {
-		Vector3 pos = transform.position;
-		pos.x =  Mathf.Clamp(transform.position.x, -3.0f, 3.0f);
-		transform.position = pos;
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
+			Vector3 pos = transform.position;
+			pos.x = Mathf.Clamp (transform.position.x, -3.0f, 3.0f);
+			transform.position = pos;
+		}
 	}
 
 	public void InitializeShip() {
 		transform.position = new Vector3 (initialPosition.x, initialPosition.y, initialPosition.z);
+		transform.rotation = Quaternion.identity;
 	}
 }
