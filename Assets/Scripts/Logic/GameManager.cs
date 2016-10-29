@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour {
 	public enum GameState {Menu, Game, Pause, GameOver};
 	private GameState currentState;
 
+	private bool unpausing = false;
+	private float unpausingTimer = 3.0f;
+
 	private GameObject generator;
 	private GameObject ship;
 
@@ -36,6 +39,16 @@ public class GameManager : MonoBehaviour {
 			currentGameSpeed += 0.001f; // FIXME : another formula required
 			currentScore += currentGameSpeed * 0.02f;
 			uimanager.UpdateScore(Mathf.FloorToInt(currentScore));
+		}
+
+		if (unpausing) {
+			unpausingTimer -= Time.deltaTime;
+			if (unpausingTimer <= 0.0f) {
+				currentGameSpeed = lastGameSpeed;
+				currentState = GameState.Game;
+				unpausingTimer = 3.0f;
+				unpausing = false;
+			}
 		}
 	}
 
@@ -67,6 +80,8 @@ public class GameManager : MonoBehaviour {
 
 	public void PauseGame() { // Game -> Pause
 		if (currentState == GameState.Game) {
+			lastGameSpeed = currentGameSpeed;
+			currentGameSpeed = 0.0f;
 			uimanager.PauseGame ();
 			currentState = GameState.Pause;
 		}
@@ -74,8 +89,8 @@ public class GameManager : MonoBehaviour {
 
 	public void UnpauseGame() { // Pause -> Game
 		if (currentState == GameState.Pause) {
+			unpausing = true;
 			uimanager.UnpauseGame ();
-			currentState = GameState.Game;
 		}
 	}
 
