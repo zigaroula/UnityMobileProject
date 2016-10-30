@@ -7,6 +7,9 @@ public class ObstacleMove : MonoBehaviour {
 	private Vector3 initialPosition;
 	public float ObstacleHeight;
 
+	public enum ObstacleType {Saw, Laser, Box, Z};
+	public ObstacleType Type;
+
 	// Use this for initialization
 	void Start () {
 		moving = false;
@@ -28,6 +31,7 @@ public class ObstacleMove : MonoBehaviour {
 	public void StartMoving() {
 		transform.position = new Vector3 (transform.position.x, 12 + (ObstacleHeight / 2), transform.position.z);
 		moving = true;
+		specialBehaviour ();
 	}
 
 	public void StopMoving() {
@@ -38,5 +42,12 @@ public class ObstacleMove : MonoBehaviour {
 	public void InitializeObstacle() {
 		transform.position = new Vector3 (initialPosition.x, initialPosition.y, initialPosition.z);
 		moving = false;
+	}
+
+	private void specialBehaviour() {
+		if (Type == ObstacleType.Box) {
+			float rotate = (Random.Range (0.0f, 1.0f)>=0.5?1:0);
+			transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotate*180, transform.eulerAngles.z);
+		}
 	}
 }

@@ -81,7 +81,7 @@ public class ShipMove : MonoBehaviour {
 		float xVelocity = 0.0f;
 		float currentX = transform.position.x;
 		float finalX = (x * 6.0f) - 3.0f;
-		float targetX = Mathf.SmoothDamp (currentX, finalX, ref xVelocity, 0.1f/speed);
+		float targetX = Mathf.SmoothDamp (currentX, finalX, ref xVelocity, 0.05f/speed);
 		transform.position = new Vector3 (targetX, transform.position.y, transform.position.z);
 		float rotationAngle = 180.0f * (currentX-finalX)/6.0f;
 		transform.eulerAngles = new Vector3 (transform.eulerAngles.x, rotationAngle, transform.eulerAngles.z);
