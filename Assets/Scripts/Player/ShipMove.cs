@@ -16,8 +16,8 @@ public class ShipMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float x;
-		//x = AlternateKeyboardDebug ();
-		x = AlternateTouchControl ();
+		x = AlternateKeyboardDebug ();
+		//x = AlternateTouchControl ();
 		if (x > -10) {
 			xTar = x;
 		}
@@ -60,7 +60,6 @@ public class ShipMove : MonoBehaviour {
 		float speed = GameManager.manager.GetGameSpeed();
 		float xVelocity = 0.0f;
 		float currentX = transform.position.x;
-		//float finalX = (x * 6.0f) - 3.0f;
 		float finalX = x;
 		float targetX = Mathf.SmoothDamp (currentX, finalX, ref xVelocity, 0.05f/speed);
 		transform.position = new Vector3 (targetX, transform.position.y, transform.position.z);
@@ -79,6 +78,6 @@ public class ShipMove : MonoBehaviour {
 	public void InitializeShip() {
 		transform.position = new Vector3 (initialPosition.x, initialPosition.y, initialPosition.z);
 		transform.rotation = Quaternion.identity;
-		xTar = 0.5f;
+		xTar = 0.0f;
 	}
 }
