@@ -16,8 +16,11 @@ public class ShipMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float x;
-		x = AlternateKeyboardDebug ();
-		//x = AlternateTouchControl ();
+		#if UNITY_EDITOR 
+			x = AlternateKeyboardDebug ();
+		#elif UNITY_ANDROID
+			x = AlternateTouchControl ();
+		#endif
 		if (x > -10) {
 			xTar = x;
 		}

@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame() { // [Menu, Pause, GameOver] -> Game
 		if (currentState == GameState.Menu || currentState == GameState.Pause || currentState == GameState.GameOver) {
+			AdManager.HideBanner ();
 			currentGameSpeed = 1.0f;
 			generator.GetComponent<Generator> ().InitializeObstacles ();
 			ship.GetComponent<ShipMove> ().InitializeShip ();
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour {
 
 	public void PauseGame() { // Game -> Pause
 		if (currentState == GameState.Game) {
+			AdManager.ShowBanner ();
 			lastGameSpeed = currentGameSpeed;
 			currentGameSpeed = 0.0f;
 			uimanager.PauseGame ();
@@ -89,6 +91,7 @@ public class GameManager : MonoBehaviour {
 
 	public void UnpauseGame() { // Pause -> Game
 		if (currentState == GameState.Pause) {
+			AdManager.HideBanner ();
 			unpausing = true;
 			uimanager.UnpauseGame ();
 		}
@@ -96,6 +99,7 @@ public class GameManager : MonoBehaviour {
 
 	public void GoToMenu() { // [Pause, GameOver] -> Menu
 		if (currentState == GameState.Pause || currentState == GameState.GameOver) {
+			AdManager.ShowBanner ();
 			currentGameSpeed = 1.0f;
 			generator.GetComponent<Generator> ().InitializeObstacles ();
 			ship.GetComponent<ShipMove> ().InitializeShip ();
