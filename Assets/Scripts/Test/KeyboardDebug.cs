@@ -12,6 +12,12 @@ public class KeyboardDebug : MonoBehaviour {
 	void Update () {
 		if (Input.GetKey (KeyCode.A)) {
 			PlayerPrefs.DeleteKey ("PlayerScore");
+			PlayerPrefs.DeleteKey ("Sound");
+			PlayerPrefs.DeleteKey ("Music");
+		}
+
+		if (Input.GetKey (KeyCode.Z)) {
+			print(PlayerPrefs.GetString ("Sound"));
 		}
 	}
 }

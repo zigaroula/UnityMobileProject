@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour {
 	private GameObject[] pauseUI;
 	private GameObject[] gameOverUI;
 	private GameObject[] fogUI;
+	private GameObject[] infoUI;
+	private GameObject[] settingsUI;
 	public GameObject ScoreText;
 	public GameObject HighestScoreText;
 	public GameObject UnpauseText;
@@ -22,11 +24,15 @@ public class UIManager : MonoBehaviour {
 		pauseUI = GameObject.FindGameObjectsWithTag ("PauseUI");
 		gameOverUI = GameObject.FindGameObjectsWithTag ("GameOverUI");
 		fogUI = GameObject.FindGameObjectsWithTag ("FogUI");
+		infoUI = GameObject.FindGameObjectsWithTag ("InfoUI");
+		settingsUI = GameObject.FindGameObjectsWithTag ("SettingsUI");
 		ShowUI (menuUI);
 		HideUI (gameUI);
 		HideUI (pauseUI);
 		HideUI (gameOverUI);
 		HideUI (fogUI);
+		HideUI (infoUI);
+		HideUI (settingsUI);
 	}
 
 	void Update() {
@@ -86,12 +92,56 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
+	public void ShowInfo() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Menu) {
+			ShowUI (infoUI);
+		}
+	}
+
+	public void HideInfo() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Menu) {
+			HideUI (infoUI);
+		}
+	}
+
+	public void ShowSettings() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Menu) {
+			ShowUI (settingsUI);
+		}
+	}
+
+	public void HideSettings() {
+		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Menu) {
+			HideUI (settingsUI);
+		}
+	}
+
 	public void UpdateScore(int score) {
-		ScoreText.GetComponent<Text> ().text = "<color=#ff0000ff>Score</color> " + score;
+		string scoreString = "";
+		if (score < 10) {
+			scoreString = "000" + score;
+		} else if (score < 100) {
+			scoreString = "00" + score;
+		} else if (score < 1000) {
+			scoreString = "0" + score;
+		} else {
+			scoreString = "" + score;
+		}
+		ScoreText.GetComponent<Text> ().text = "<color=#ff0000ff>Score</color> " + scoreString;
 	}
 
 	public void UpdateHighestScore(int score) {
-		HighestScoreText.GetComponent<Text> ().text = "<color=#ff0000ff>Highscore</color> " + score;
+		string scoreString = "";
+		if (score < 10) {
+			scoreString = "000" + score;
+		} else if (score < 100) {
+			scoreString = "00" + score;
+		} else if (score < 1000) {
+			scoreString = "0" + score;
+		} else {
+			scoreString = "" + score;
+		}
+		HighestScoreText.GetComponent<Text> ().text = "<color=#ff0000ff>Highscore</color> " + scoreString;
 	}
 
 	private void ShowUI(GameObject[] arrayUI) {
