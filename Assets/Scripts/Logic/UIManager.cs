@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject ScoreText;
 	public GameObject HighestScoreText;
 	public GameObject UnpauseText;
+	public GameObject ScoreGOText;
 
 	private bool unpausing = false;
 	private float unpausingTimer = 3.0f;
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour {
 	public void GameOver() { // Game -> GameOver
 		if (GameManager.manager.GetCurrentGameState () == GameManager.GameState.Game) {
 			HideUI (fogUI);
+			HideUI (gameUI);
 			ShowUI (gameOverUI);
 		}
 	}
@@ -142,6 +144,26 @@ public class UIManager : MonoBehaviour {
 			scoreString = "" + score;
 		}
 		HighestScoreText.GetComponent<Text> ().text = "<color=#ff0000ff>Highscore</color> " + scoreString;
+	}
+
+	public void UpdateFinalScore(int score, int best) {
+		string finalScoreString = "final score\n";
+		string scoreString = "";
+		if (score < 10) {
+			scoreString = "000" + score;
+		} else if (score < 100) {
+			scoreString = "00" + score;
+		} else if (score < 1000) {
+			scoreString = "0" + score;
+		} else {
+			scoreString = "" + score;
+		}
+		scoreString = "<color=red>" + scoreString + "</color>";
+		finalScoreString += scoreString;
+		if (score > best) {
+			finalScoreString += "\n\n<color=yellow>Personal best !</color>";
+		}
+		ScoreGOText.GetComponent<Text> ().text = finalScoreString;
 	}
 
 	private void ShowUI(GameObject[] arrayUI) {

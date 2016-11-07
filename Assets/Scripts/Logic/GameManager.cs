@@ -62,12 +62,13 @@ public class GameManager : MonoBehaviour {
 			Explosion.GetComponent<Explosion> ().PlayExplosion ();
 			ship.GetComponent<ShipMove>().GameOver();
 			int intCurrentScore = Mathf.FloorToInt (currentScore);
+			uimanager.GameOver ();
+			uimanager.UpdateFinalScore (intCurrentScore, highestScore);
 			if (intCurrentScore > highestScore) {
 				highestScore = intCurrentScore;
 				PlayerPrefs.SetInt ("PlayerScore", intCurrentScore);
 				PlayerPrefs.Save ();
 			}
-			uimanager.GameOver ();
 			currentState = GameState.GameOver;
 			AdManager.AskRequestInterstitial ();
 			gameOverCount++;
