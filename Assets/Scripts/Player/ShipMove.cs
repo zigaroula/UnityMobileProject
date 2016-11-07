@@ -83,4 +83,8 @@ public class ShipMove : MonoBehaviour {
 		transform.rotation = Quaternion.identity;
 		xTar = 0.0f;
 	}
+
+	public void GameOver() {
+		transform.position = new Vector3 (initialPosition.x, -50, initialPosition.z);
+	}
 }

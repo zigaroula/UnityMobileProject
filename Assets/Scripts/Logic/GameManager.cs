@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject generator;
 	private GameObject ship;
+	public GameObject Explosion;
 
 	private UIManager uimanager;
 
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour {
 		if (currentState == GameState.Game) {
 			lastGameSpeed = currentGameSpeed;
 			currentGameSpeed = 0.1f;
+			Explosion.GetComponent<Explosion> ().PlayExplosion ();
+			ship.GetComponent<ShipMove>().GameOver();
 			int intCurrentScore = Mathf.FloorToInt (currentScore);
 			if (intCurrentScore > highestScore) {
 				highestScore = intCurrentScore;
