@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 	private bool unpausing = false;
 	private float unpausingTimer = 3.0f;
 
+	private int gameOverCount;
+
 	private GameObject generator;
 	private GameObject ship;
 
@@ -64,6 +66,12 @@ public class GameManager : MonoBehaviour {
 			}
 			uimanager.GameOver ();
 			currentState = GameState.GameOver;
+			AdManager.AskRequestInterstitial ();
+			gameOverCount++;
+			if (gameOverCount >= 3) {
+				AdManager.GameOver ();
+				gameOverCount = 0;
+			}
 		}
 	}
 
