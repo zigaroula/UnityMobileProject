@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (currentState == GameState.Game) {
 			currentGameSpeed += 0.001f; // FIXME : another formula required
-			currentScore += currentGameSpeed * 0.02f;
+			currentScore += currentGameSpeed * 0.1f;
 			uimanager.UpdateScore(Mathf.FloorToInt(currentScore));
 		}
 
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour {
 			lastGameSpeed = currentGameSpeed;
 			currentGameSpeed = 0.1f;
 			Explosion.GetComponent<Explosion> ().PlayExplosion ();
+			Camera.main.GetComponent<UISound> ().Explosion ();
 			ship.GetComponent<ShipMove>().GameOver();
 			int intCurrentScore = Mathf.FloorToInt (currentScore);
 			uimanager.GameOver ();

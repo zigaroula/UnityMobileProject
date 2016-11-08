@@ -15,9 +15,11 @@ public class UIManager : MonoBehaviour {
 	public GameObject HighestScoreText;
 	public GameObject UnpauseText;
 	public GameObject ScoreGOText;
+	public GameObject MainCamera;
 
 	private bool unpausing = false;
 	private float unpausingTimer = 3.0f;
+	private int lastUnpausingTimer = 0;
 
 	void Start() {
 		menuUI = GameObject.FindGameObjectsWithTag ("MenuUI");
@@ -39,6 +41,10 @@ public class UIManager : MonoBehaviour {
 	void Update() {
 		if (unpausing) {
 			unpausingTimer -= Time.deltaTime;
+			if (lastUnpausingTimer != Mathf.Ceil (unpausingTimer) && Mathf.Ceil (unpausingTimer) != 0.0f) {
+				MainCamera.GetComponent<UISound> ().CountDown ();
+				lastUnpausingTimer = (int) Mathf.Ceil (unpausingTimer);
+			}
 			UnpauseText.GetComponent <Text> ().text = Mathf.Ceil (unpausingTimer).ToString();
 			if (unpausingTimer <= 0.0f) {
 				UnpauseText.GetComponent <Text> ().text = "";

@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour {
 
-	private string soundEnabled;
-	private string musicEnabled;
+	private static string soundEnabled;
+	private static string musicEnabled;
 
 	private bool initializing = true;
 
@@ -33,10 +33,6 @@ public class SoundManager : MonoBehaviour {
 		MusicCheckBox.GetComponent<Toggle> ().isOn = (musicEnabled == "on");
 		initializing = false;
 	}
-
-	void Update () {
-		
-	}
 		
 	public void ToggleSound() {
 		if (initializing) {
@@ -60,5 +56,13 @@ public class SoundManager : MonoBehaviour {
 		PlayerPrefs.SetString ("Sound", soundEnabled);
 		PlayerPrefs.SetString ("Music", musicEnabled);
 		PlayerPrefs.Save ();
+	}
+
+	public static bool SoundEnabled() {
+		return soundEnabled=="on";
+	}
+
+	public static bool MusicEnabled() {
+		return musicEnabled=="on";
 	}
 }
