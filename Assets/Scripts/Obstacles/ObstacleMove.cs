@@ -7,7 +7,7 @@ public class ObstacleMove : MonoBehaviour {
 	private Vector3 initialPosition;
 	public float ObstacleHeight;
 
-	public enum ObstacleType {Saw, Laser, Box, Z};
+	public enum ObstacleType {Saw, Laser, Box, Z, Asteroid};
 	public ObstacleType Type;
 
 	// Use this for initialization
@@ -21,7 +21,7 @@ public class ObstacleMove : MonoBehaviour {
 		if (moving && (GameManager.manager.GetCurrentGameState() == GameManager.GameState.Game || GameManager.manager.GetCurrentGameState() == GameManager.GameState.GameOver)) {
 			float speed = GameManager.manager.GetGameSpeed();
 			float obstacleTop = transform.position.y + (ObstacleHeight / 2);
-			transform.Translate (0, -0.1f * speed, 0);
+			transform.Translate (0, -0.1f * speed, 0, Space.World);
 			if (obstacleTop < -12) {
 				StopMoving ();
 			}
@@ -46,8 +46,17 @@ public class ObstacleMove : MonoBehaviour {
 
 	private void specialBehaviour() {
 		if (Type == ObstacleType.Box) {
-			float rotate = (Random.Range (0.0f, 1.0f)>=0.5?1:0);
-			transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotate*180, transform.eulerAngles.z);
+			float rotate = (Random.Range (0.0f, 1.0f) >= 0.5 ? 1 : 0);
+			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, rotate * 180, transform.eulerAngles.z);
+		} else if (Type == ObstacleType.Asteroid) {
+			int pos = Random.Range (0, 3);
+			if (pos == 0) {
+				transform.position = new Vector3 (0.0f, transform.position.y, transform.position.z);
+			} else if (pos == 1) {
+				transform.position = new Vector3 (2.0f, transform.position.y, transform.position.z);
+			} else if (pos == 2) {
+				transform.position = new Vector3 (-2.0f, transform.position.y, transform.position.z);
+			}
 		}
 	}
 }
