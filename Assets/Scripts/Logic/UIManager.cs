@@ -16,10 +16,16 @@ public class UIManager : MonoBehaviour {
 	public GameObject UnpauseText;
 	public GameObject ScoreGOText;
 	public GameObject MainCamera;
+	public GameObject MenuGOButton;
+	public GameObject RestartGOButtion;
 
 	private bool unpausing = false;
 	private float unpausingTimer = 3.0f;
 	private int lastUnpausingTimer = 0;
+
+	private int gameOverCount;
+	private bool gameOvering = false;
+	private float gameOveringTimer = 2.0f;
 
 	void Start() {
 		menuUI = GameObject.FindGameObjectsWithTag ("MenuUI");
@@ -53,6 +59,29 @@ public class UIManager : MonoBehaviour {
 				unpausing = false;
 			}
 		}
+
+		if (gameOvering) {
+			gameOveringTimer -= Time.deltaTime;
+			MenuGOButton.GetComponent<Button> ().interactable = false;
+			RestartGOButtion.GetComponent<Button> ().interactable = false;
+			Color fadingColor = new Color (1, 1, 1, (gameOveringTimer>=1.0f?0.0f:(1.0f-gameOveringTimer)));
+			MenuGOButton.GetComponent<Image> ().color = fadingColor;
+			MenuGOButton.GetComponentInChildren<RawImage> ().color = fadingColor;
+			RestartGOButtion.GetComponent<Image> ().color = fadingColor;
+			RestartGOButtion.GetComponentInChildren<RawImage> ().color = fadingColor;
+			if (gameOveringTimer <= 0.0f) {
+				MenuGOButton.GetComponent<Button> ().interactable = true;
+				RestartGOButtion.GetComponent<Button> ().interactable = true;
+				AdManager.AskRequestInterstitial ();
+				gameOverCount++;
+				if (gameOverCount >= 3) {
+					AdManager.GameOver ();
+					gameOverCount = 0;
+				}
+				gameOveringTimer = 2.0f;
+				gameOvering = false;
+			}
+		}
 	}
 
 	public void GameOver() { // Game -> GameOver
@@ -60,6 +89,7 @@ public class UIManager : MonoBehaviour {
 			HideUI (fogUI);
 			HideUI (gameUI);
 			ShowUI (gameOverUI);
+			gameOvering = true;
 		}
 	}
 
