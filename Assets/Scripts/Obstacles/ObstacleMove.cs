@@ -22,14 +22,14 @@ public class ObstacleMove : MonoBehaviour {
 			float speed = GameManager.manager.GetGameSpeed();
 			float obstacleTop = transform.position.y + (ObstacleHeight / 2);
 			transform.Translate (0, -0.1f * speed, 0, Space.World);
-			if (obstacleTop < -12) {
+			if (obstacleTop < GameManager.manager.gameBot) {
 				StopMoving ();
 			}
 		}
 	}
 
 	public void StartMoving() {
-		transform.position = new Vector3 (transform.position.x, 12 + (ObstacleHeight / 2), transform.position.z);
+		transform.position = new Vector3 (transform.position.x, GameManager.manager.gameTop + (ObstacleHeight / 2), transform.position.z);
 		moving = true;
 		specialBehaviour ();
 	}

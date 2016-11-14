@@ -19,7 +19,8 @@ public class Generator : MonoBehaviour {
 			bool newObstacleRequired = true;
 			foreach (GameObject obstacle in obstacles) {
 				float y = obstacle.transform.position.y;
-				if (y >= -10 && y <= 20) {
+				float obstacleTop = obstacle.transform.position.y + (obstacle.GetComponent<ObstacleMove>().ObstacleHeight / 2);
+				if (obstacleTop >= GameManager.manager.gameBot && y <= 100) {
 					newObstacleRequired = false;
 					break;
 				}

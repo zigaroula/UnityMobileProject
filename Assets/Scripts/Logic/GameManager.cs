@@ -2,9 +2,15 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-	
+
+	public float gameTop;
+	public float gameLeft;
+	public float gameRight;
+	public float gameBot;
+
 	private float currentGameSpeed = 1.0f;
 	private float lastGameSpeed;
+
 	private float currentScore;
 	private int highestScore;
 
@@ -27,6 +33,17 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start () {
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(0, 0));
+		if (Physics.Raycast (ray, out hit)) {
+			gameBot =  2*hit.point.y;
+			gameRight = 2 * hit.point.x;
+		}
+		ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width, Screen.height));
+		if (Physics.Raycast (ray, out hit)) {
+			gameTop =  2*hit.point.y;
+			gameLeft = 2 * hit.point.x;
+		}
 		currentState = GameState.Menu;
 		generator = GameObject.FindGameObjectWithTag ("Generator");
 		ship = GameObject.FindGameObjectWithTag ("Ship");
