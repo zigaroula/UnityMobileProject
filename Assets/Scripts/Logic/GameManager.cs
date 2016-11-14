@@ -3,11 +3,13 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public float gameTop;
-	public float gameLeft;
-	public float gameRight;
-	public float gameBot;
+	public float gameTop = 6;
+	public float gameLeft = -3;
+	public float gameRight = 3;
+	public float gameBot = -6;
 
+	private float gameTime = 0.0f;
+	private float gameSpeedIncrease = Mathf.Exp(1);
 	private float currentGameSpeed = 1.0f;
 	private float lastGameSpeed;
 
@@ -33,17 +35,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start () {
-		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay(new Vector3(0, 0));
-		if (Physics.Raycast (ray, out hit)) {
-			gameBot =  2*hit.point.y;
-			gameRight = 2 * hit.point.x;
-		}
-		ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width, Screen.height));
-		if (Physics.Raycast (ray, out hit)) {
-			gameTop =  2*hit.point.y;
-			gameLeft = 2 * hit.point.x;
-		}
+		computeGameCoordinates ();
 		currentState = GameState.Menu;
 		generator = GameObject.FindGameObjectWithTag ("Generator");
 		ship = GameObject.FindGameObjectWithTag ("Ship");
@@ -54,8 +46,10 @@ public class GameManager : MonoBehaviour {
 
 	void Update () {
 		if (currentState == GameState.Game) {
-			currentGameSpeed += 0.001f; // FIXME : another formula required
-			currentScore += currentGameSpeed * 0.1f;
+			gameTime += Time.deltaTime;
+			gameSpeedIncrease += Time.deltaTime/2;
+			currentGameSpeed = Mathf.Log(gameSpeedIncrease);
+			currentScore = (currentScore >= 999999?999999:Mathf.Pow(gameTime, 2));
 			uimanager.UpdateScore(Mathf.FloorToInt(currentScore));
 		}
 
@@ -93,6 +87,8 @@ public class GameManager : MonoBehaviour {
 		if (currentState == GameState.Menu || currentState == GameState.Pause || currentState == GameState.GameOver) {
 			AdManager.HideBanner ();
 			currentGameSpeed = 1.0f;
+			gameSpeedIncrease = Mathf.Exp(1);
+			gameTime = 0.0f;
 			generator.GetComponent<Generator> ().InitializeObstacles ();
 			ship.GetComponent<ShipMove> ().InitializeShip ();
 			currentScore = 0;
@@ -123,6 +119,8 @@ public class GameManager : MonoBehaviour {
 		if (currentState == GameState.Pause || currentState == GameState.GameOver) {
 			AdManager.ShowBanner ();
 			currentGameSpeed = 1.0f;
+			gameSpeedIncrease = Mathf.Exp(1);
+			gameTime = 0.0f;
 			generator.GetComponent<Generator> ().InitializeObstacles ();
 			ship.GetComponent<ShipMove> ().InitializeShip ();
 			uimanager.UpdateHighestScore (highestScore);
@@ -137,5 +135,19 @@ public class GameManager : MonoBehaviour {
 
 	public float GetGameSpeed() {
 		return currentGameSpeed;
+	}
+
+	private void computeGameCoordinates() {
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(0, 0));
+		if (Physics.Raycast (ray, out hit)) {
+			gameBot =  2*hit.point.y;
+			gameRight = 2 * hit.point.x;
+		}
+		ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width, Screen.height));
+		if (Physics.Raycast (ray, out hit)) {
+			gameTop =  2*hit.point.y;
+			gameLeft = 2 * hit.point.x;
+		}
 	}
 }

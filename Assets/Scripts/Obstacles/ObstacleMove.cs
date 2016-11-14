@@ -21,7 +21,7 @@ public class ObstacleMove : MonoBehaviour {
 		if (moving && (GameManager.manager.GetCurrentGameState() == GameManager.GameState.Game || GameManager.manager.GetCurrentGameState() == GameManager.GameState.GameOver)) {
 			float speed = GameManager.manager.GetGameSpeed();
 			float obstacleTop = transform.position.y + (ObstacleHeight / 2);
-			transform.Translate (0, -0.1f * speed, 0, Space.World);
+			transform.Translate (0, -5.0f * speed * Time.deltaTime, 0, Space.World);
 			if (obstacleTop < GameManager.manager.gameBot) {
 				StopMoving ();
 			}
