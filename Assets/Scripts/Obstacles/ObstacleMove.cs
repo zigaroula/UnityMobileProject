@@ -7,7 +7,7 @@ public class ObstacleMove : MonoBehaviour {
 	private Vector3 initialPosition;
 	public float ObstacleHeight;
 
-	public enum ObstacleType {Saw, Laser, Box, Z, Asteroid, Sun};
+	public enum ObstacleType {Saw, Laser, Box, Z, Asteroid, Sun, Planet};
 	public ObstacleType Type;
 
 	// Use this for initialization
@@ -48,7 +48,7 @@ public class ObstacleMove : MonoBehaviour {
 		if (Type == ObstacleType.Box) {
 			float rotate = (Random.Range (0.0f, 1.0f) >= 0.5 ? 1 : 0);
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, rotate * 180, transform.eulerAngles.z);
-		} else if (Type == ObstacleType.Asteroid) {
+		} else if (Type == ObstacleType.Planet) {
 			int pos = Random.Range (0, 3);
 			if (pos == 0) {
 				transform.position = new Vector3 (0.0f, transform.position.y, transform.position.z);
