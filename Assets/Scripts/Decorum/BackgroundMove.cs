@@ -39,6 +39,8 @@ public class BackgroundMove : MonoBehaviour {
 		nebulas.Add (NebulaE);
 		nebulas.Add (NebulaEF);
 		nebulas.Add (NebulaF);
+		int matNumber = Random.Range (0, nebulas.Count);
+		gameObject.GetComponent<MeshRenderer> ().material = nebulas [matNumber];
 	}
 	
 	// Update is called once per frame
