@@ -45,10 +45,10 @@ public class ObstacleMove : MonoBehaviour {
 	}
 
 	private void specialBehaviour() {
-		if (Type == ObstacleType.Box) {
+		if (Type == ObstacleType.Box || Type == ObstacleType.Z) {
 			float rotate = (Random.Range (0.0f, 1.0f) >= 0.5 ? 1 : 0);
 			transform.eulerAngles = new Vector3 (transform.eulerAngles.x, rotate * 180, transform.eulerAngles.z);
-		} else if (Type == ObstacleType.Planet) {
+		} else if (Type == ObstacleType.Asteroid) {
 			int pos = Random.Range (0, 3);
 			if (pos == 0) {
 				transform.position = new Vector3 (0.0f, transform.position.y, transform.position.z);
