@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour {
 
 	private int gameOverCount;
 	private bool gameOvering = false;
+	private bool gameOverAdRequested = false;
 	private float gameOveringTimer = 2.0f;
 
 	void Start() {
@@ -69,15 +70,20 @@ public class UIManager : MonoBehaviour {
 			MenuGOButton.GetComponentInChildren<RawImage> ().color = fadingColor;
 			RestartGOButtion.GetComponent<Image> ().color = fadingColor;
 			RestartGOButtion.GetComponentInChildren<RawImage> ().color = fadingColor;
-			if (gameOveringTimer <= 0.0f) {
-				MenuGOButton.GetComponent<Button> ().interactable = true;
-				RestartGOButtion.GetComponent<Button> ().interactable = true;
+
+			if (gameOverAdRequested && gameOveringTimer <= 1.0f) {
 				AdManager.AskRequestInterstitial ();
 				gameOverCount++;
 				if (gameOverCount >= 3) {
 					AdManager.GameOver ();
 					gameOverCount = 0;
 				}
+				gameOverAdRequested = false;
+			}
+
+			if (gameOveringTimer <= 0.0f) {
+				MenuGOButton.GetComponent<Button> ().interactable = true;
+				RestartGOButtion.GetComponent<Button> ().interactable = true;
 				gameOveringTimer = 2.0f;
 				gameOvering = false;
 			}
@@ -90,6 +96,7 @@ public class UIManager : MonoBehaviour {
 			HideUI (gameUI);
 			ShowUI (gameOverUI);
 			gameOvering = true;
+			gameOverAdRequested = true;
 		}
 	}
 
