@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject Explosion;
 
 	private UIManager uimanager;
+	public GPGSHandler gpgs;
 
 	public static GameManager manager;
 
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour {
 			int intCurrentScore = Mathf.FloorToInt (currentScore);
 			uimanager.GameOver ();
 			uimanager.UpdateFinalScore (intCurrentScore, highestScore);
+			gpgs.PostScore (intCurrentScore);
 			if (intCurrentScore > highestScore) {
 				highestScore = intCurrentScore;
 				PlayerPrefs.SetInt ("PlayerScore", intCurrentScore);
