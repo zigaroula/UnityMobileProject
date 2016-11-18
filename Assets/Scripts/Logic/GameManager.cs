@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour {
 			uimanager.GameOver ();
 			uimanager.UpdateFinalScore (intCurrentScore, highestScore);
 			gpgs.PostScore (intCurrentScore);
+			gpgs.UnlockScoreAchievements (intCurrentScore);
+			gpgs.IncrementPlayCount ();
 			if (intCurrentScore > highestScore) {
 				highestScore = intCurrentScore;
 				PlayerPrefs.SetInt ("PlayerScore", intCurrentScore);
