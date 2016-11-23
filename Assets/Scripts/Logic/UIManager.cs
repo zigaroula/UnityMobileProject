@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour {
 	private bool gameOvering = false;
 	private bool gameOverAdRequested = false;
 	private float gameOveringTimer = 2.0f;
+	private float timeElapsed = 0.0f;
 
 	void Start() {
 		menuUI = GameObject.FindGameObjectsWithTag ("MenuUI");
@@ -77,8 +78,9 @@ public class UIManager : MonoBehaviour {
 			if (gameOverAdRequested && gameOveringTimer <= 1.0f) {
 				AdManager.AskRequestInterstitial ();
 				gameOverCount++;
-				if (gameOverCount >= 3) {
+				if (gameOverCount >= 3 && timeElapsed >= 90.0f) {
 					AdManager.GameOver ();
+					timeElapsed = 0.0f;
 					gameOverCount = 0;
 				}
 				gameOverAdRequested = false;
@@ -95,6 +97,8 @@ public class UIManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			ShowUI (exitUI);
 		}
+
+		timeElapsed += Time.deltaTime;
 	}
 
 	public void GameOver() { // Game -> GameOver

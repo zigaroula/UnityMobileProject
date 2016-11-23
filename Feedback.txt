@@ -3,7 +3,7 @@ Eaque :
 Jeu trop lourd
 OK - Planète violette moche
 OK - Vaisseau trop lent à réagir
-Pub trop présentes quand tu meurs beaucoup (peut être un système en fonction du score ou du temps de jeu)
+OK - Pub trop présentes quand tu meurs beaucoup (peut être un système en fonction du score ou du temps de jeu)
 OK - Tap pas très intuitif
 OK - Connexion au google play game services avec écran de chargement !
 OK - Retour arrière doit faire sortir du jeu (voulez-vous quitter ?)
@@ -16,7 +16,7 @@ mmh je crash juste après l'écran "made with unity", j'ai un écran noir et ça me 
 
 Stéphane :
 
-planète avec lune à revoir un peu
+OK - planète avec lune à revoir un peu
 plusieurs lignes de flammes d'affilé aléatoirement
 
 TODO :
