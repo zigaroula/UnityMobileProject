@@ -18,6 +18,8 @@ public class GPGSHandler : MonoBehaviour {
 	private string achievement_5000_points = "CgkI377R8oAUEAIQBA";
 	private string achievement_9000_points = "CgkI377R8oAUEAIQBQ";
 
+	public GameObject LoadingScreen;
+
 	void Awake () {
 		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder ().Build ();
 		PlayGamesPlatform.InitializeInstance (config);
@@ -31,7 +33,7 @@ public class GPGSHandler : MonoBehaviour {
 
 	public void LogIn() {
 		Social.localUser.Authenticate ((bool success) => {
-			Debug.Log(success);
+			LoadingScreen.SetActive(false);
 		});
 	}
 

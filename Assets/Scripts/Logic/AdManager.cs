@@ -34,7 +34,7 @@ public class AdManager : MonoBehaviour {
 		bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
 
 		//AdRequest request = new AdRequest.Builder().SetBirthday(new DateTime(1985, 1, 1)).TagForChildDirectedTreatment(true).Build();
-		AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice("1BD92B34EEB8D67D57C8BCC2DD766240").Build();
+		AdRequest request = new AdRequest.Builder().TagForChildDirectedTreatment(true).AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice("1BD92B34EEB8D67D57C8BCC2DD766240").Build();
 
 		bannerView.LoadAd(request);
 	}
@@ -51,7 +51,7 @@ public class AdManager : MonoBehaviour {
 		interstitial = new InterstitialAd(adUnitId);
 
 		//AdRequest request = new AdRequest.Builder().SetBirthday(new DateTime(1985, 1, 1)).TagForChildDirectedTreatment(true).Build();
-		AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice("1BD92B34EEB8D67D57C8BCC2DD766240").Build();
+		AdRequest request = new AdRequest.Builder().TagForChildDirectedTreatment(true).AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice("1BD92B34EEB8D67D57C8BCC2DD766240").Build();
 
 		interstitial.LoadAd(request);
 		toBeRequested = false;

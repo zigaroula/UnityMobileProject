@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
 	private GameObject[] fogUI;
 	private GameObject[] infoUI;
 	private GameObject[] settingsUI;
+	private GameObject[] exitUI;
 	public GameObject ScoreText;
 	public GameObject HighestScoreText;
 	public GameObject UnpauseText;
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour {
 		fogUI = GameObject.FindGameObjectsWithTag ("FogUI");
 		infoUI = GameObject.FindGameObjectsWithTag ("InfoUI");
 		settingsUI = GameObject.FindGameObjectsWithTag ("SettingsUI");
+		exitUI = GameObject.FindGameObjectsWithTag ("ExitUI");
 		ShowUI (menuUI);
 		HideUI (gameUI);
 		HideUI (pauseUI);
@@ -43,6 +45,7 @@ public class UIManager : MonoBehaviour {
 		HideUI (fogUI);
 		HideUI (infoUI);
 		HideUI (settingsUI);
+		HideUI (exitUI);
 	}
 
 	void Update() {
@@ -87,6 +90,10 @@ public class UIManager : MonoBehaviour {
 				gameOveringTimer = 2.0f;
 				gameOvering = false;
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			ShowUI (exitUI);
 		}
 	}
 
@@ -207,6 +214,14 @@ public class UIManager : MonoBehaviour {
 			finalScoreString += "\n\n<color=yellow>Personal best !</color>";
 		}
 		ScoreGOText.GetComponent<Text> ().text = finalScoreString;
+	}
+
+	public void QuitGame() {
+		Application.Quit ();
+	}
+
+	public void CancelQuitGame() {
+		HideUI (exitUI);
 	}
 
 	private void ShowUI(GameObject[] arrayUI) {

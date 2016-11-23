@@ -1,0 +1,24 @@
+Eaque :
+
+Jeu trop lourd
+OK - Planète violette moche
+OK - Vaisseau trop lent à réagir
+Pub trop présentes quand tu meurs beaucoup (peut être un système en fonction du score ou du temps de jeu)
+OK - Tap pas très intuitif
+OK - Connexion au google play game services avec écran de chargement !
+OK - Retour arrière doit faire sortir du jeu (voulez-vous quitter ?)
+OK - Peut-être modifier le vaisseau trop compliqué
+
+Devan :
+
+mmh je crash juste après l'écran "made with unity", j'ai un écran noir et ça me fait revenir home. L'app est tjr là et si je reclique dessus j'ai juste un black screen
+ça persiste apres reinstall, j'ai pas de son et le blackscreen est assez court (~2s). Ca me refait revenir au bureau, et l'app continue de tourner et si je reclique dessus je repars à partir de made with unity et je rebug juste après.
+
+Stéphane :
+
+planète avec lune à revoir un peu
+plusieurs lignes de flammes d'affilé aléatoirement
+
+TODO :
+Revoir la description du jeu
+Revoir les achievements
