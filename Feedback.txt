@@ -22,3 +22,5 @@ plusieurs lignes de flammes d'affilé aléatoirement
 TODO :
 Revoir la description du jeu
 Revoir les achievements
+OK - Changer l'icône des classements
+1.1 - Peut être ajouter des bonus collectables
