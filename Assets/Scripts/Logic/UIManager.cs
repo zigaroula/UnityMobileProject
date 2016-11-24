@@ -18,7 +18,9 @@ public class UIManager : MonoBehaviour {
 	public GameObject ScoreGOText;
 	public GameObject MainCamera;
 	public GameObject MenuGOButton;
-	public GameObject RestartGOButtion;
+	public GameObject RestartGOButton;
+	public Image MenuGOImage;
+	public Image RestartGOImage;
 
 	private bool unpausing = false;
 	private float unpausingTimer = 3.0f;
@@ -65,15 +67,17 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 
+		print (RestartGOButton.GetComponentInChildren<Image> ().color);
+
 		if (gameOvering) {
 			gameOveringTimer -= Time.deltaTime;
 			MenuGOButton.GetComponent<Button> ().interactable = false;
-			RestartGOButtion.GetComponent<Button> ().interactable = false;
-			Color fadingColor = new Color (1, 1, 1, (gameOveringTimer>=1.0f?0.0f:(1.0f-gameOveringTimer)));
+			RestartGOButton.GetComponent<Button> ().interactable = false;
+			Color fadingColor = new Color (1, 1, 1, (gameOveringTimer>=1.0f?0.0f:Mathf.Clamp((1.0f-gameOveringTimer), 0.0f, 1.0f)));
 			MenuGOButton.GetComponent<Image> ().color = fadingColor;
-			MenuGOButton.GetComponentInChildren<RawImage> ().color = fadingColor;
-			RestartGOButtion.GetComponent<Image> ().color = fadingColor;
-			RestartGOButtion.GetComponentInChildren<RawImage> ().color = fadingColor;
+			MenuGOImage.color = fadingColor;
+			RestartGOButton.GetComponent<Image> ().color = fadingColor;
+			RestartGOImage.color = fadingColor;
 
 			if (gameOverAdRequested && gameOveringTimer <= 1.0f) {
 				AdManager.AskRequestInterstitial ();
@@ -88,7 +92,7 @@ public class UIManager : MonoBehaviour {
 
 			if (gameOveringTimer <= 0.0f) {
 				MenuGOButton.GetComponent<Button> ().interactable = true;
-				RestartGOButtion.GetComponent<Button> ().interactable = true;
+				RestartGOButton.GetComponent<Button> ().interactable = true;
 				gameOveringTimer = 2.0f;
 				gameOvering = false;
 			}
