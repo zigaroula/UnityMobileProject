@@ -1,6 +1,6 @@
 Eaque :
 
-Jeu trop lourd
+OK - Jeu trop lourd
 OK - Planète violette moche
 OK - Vaisseau trop lent à réagir
 OK - Pub trop présentes quand tu meurs beaucoup (peut être un système en fonction du score ou du temps de jeu)
@@ -17,10 +17,13 @@ mmh je crash juste après l'écran "made with unity", j'ai un écran noir et ça me 
 Stéphane :
 
 OK - planète avec lune à revoir un peu
-plusieurs lignes de flammes d'affilé aléatoirement
+OK - plusieurs lignes de flammes d'affilé aléatoirement
 
 TODO :
 Revoir la description du jeu
 Revoir les achievements
+Refaire les screenshots
 OK - Changer l'icône des classements
+
+
 1.1 - Peut être ajouter des bonus collectables

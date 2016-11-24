@@ -67,8 +67,6 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 
-		print (RestartGOButton.GetComponentInChildren<Image> ().color);
-
 		if (gameOvering) {
 			gameOveringTimer -= Time.deltaTime;
 			MenuGOButton.GetComponent<Button> ().interactable = false;
