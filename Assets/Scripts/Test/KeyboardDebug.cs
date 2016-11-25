@@ -10,14 +10,16 @@ public class KeyboardDebug : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.A)) {
-			PlayerPrefs.DeleteKey ("PlayerScore");
-			PlayerPrefs.DeleteKey ("Sound");
-			PlayerPrefs.DeleteKey ("Music");
-		}
+		#if UNITY_EDITOR
+			if (Input.GetKey (KeyCode.A)) {
+				PlayerPrefs.DeleteKey ("PlayerScore");
+				PlayerPrefs.DeleteKey ("Sound");
+				PlayerPrefs.DeleteKey ("Music");
+			}
 
-		if (Input.GetKey (KeyCode.Z)) {
-			print(PlayerPrefs.GetString ("Sound"));
-		}
+			if (Input.GetKey (KeyCode.Z)) {
+				print(PlayerPrefs.GetString ("Sound"));
+			}
+		#endif
 	}
 }

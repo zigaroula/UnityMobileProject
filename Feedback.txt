@@ -20,10 +20,10 @@ OK - planète avec lune à revoir un peu
 OK - plusieurs lignes de flammes d'affilé aléatoirement
 
 TODO :
-Revoir la description du jeu
-Revoir les achievements
+OK - Revoir la description du jeu
+OK - Revoir les achievements
 Refaire les screenshots
 OK - Changer l'icône des classements
 
 
-1.1 - Peut être ajouter des bonus collectables
+1.2 - Peut être ajouter des bonus collectables

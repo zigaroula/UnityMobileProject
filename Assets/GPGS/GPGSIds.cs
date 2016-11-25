@@ -24,14 +24,17 @@
 
 public static class GPGSIds
 {
-        public const string achievement_100_games = "CgkI377R8oAUEAIQBw"; // <GPGSID>
-        public const string achievement_200_games = "CgkI377R8oAUEAIQCA"; // <GPGSID>
-        public const string achievement_nearly_an_ace = "CgkI377R8oAUEAIQAw"; // <GPGSID>
-        public const string achievement_its_over_9000_ = "CgkI377R8oAUEAIQBQ"; // <GPGSID>
-        public const string achievement_a_good_start = "CgkI377R8oAUEAIQAg"; // <GPGSID>
         public const string leaderboard_score_ranking = "CgkI377R8oAUEAIQAQ"; // <GPGSID>
-        public const string achievement_10_games = "CgkI377R8oAUEAIQBg"; // <GPGSID>
-        public const string achievement_a_true_ace = "CgkI377R8oAUEAIQBA"; // <GPGSID>
+        public const string achievement_space_allstar = "CgkI377R8oAUEAIQFQ"; // <GPGSID>
+        public const string achievement_space_intermediate = "CgkI377R8oAUEAIQEg"; // <GPGSID>
+        public const string achievement_almost_an_ace = "CgkI377R8oAUEAIQDQ"; // <GPGSID>
+        public const string achievement_space_expert = "CgkI377R8oAUEAIQEw"; // <GPGSID>
+        public const string achievement_the_lord_of_the_space = "CgkI377R8oAUEAIQEA"; // <GPGSID>
+        public const string achievement_space_master = "CgkI377R8oAUEAIQFA"; // <GPGSID>
+        public const string achievement_its_over_nine_thousand = "CgkI377R8oAUEAIQDw"; // <GPGSID>
+        public const string achievement_a_good_start = "CgkI377R8oAUEAIQDA"; // <GPGSID>
+        public const string achievement_a_true_ace = "CgkI377R8oAUEAIQDg"; // <GPGSID>
+        public const string achievement_space_rookie = "CgkI377R8oAUEAIQEQ"; // <GPGSID>
 
 }
 
