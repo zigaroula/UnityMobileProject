@@ -1,0 +1,13 @@
+[Android] Mon premier jeu est disponible sur le Google Play Store
+
+Après deux mois de développement, mon premier jeu mobile développé sous Unity est disponible sur le Google Play Store : https://play.google.com/store/apps/details?id=com.Zigaroula.AceofSpace&hl=fr
+
+Il s'agit d'un jeu arcade type "endless runner" très classique dans lequel vous contrôlez un vaisseau spatial devant éviter des obstacles pour aller le plus loin possible. Le jeu est relativement difficile, et certains obstacles ne pardonnent pas, d'autant plus que la vitesse augmente avec le temps.
+
+Je me suis occupé de l'intégralité de la partie programmation ; les éléments graphiques (musique, icônes, modèles etc) proviennent de différentes sources (toutes référencées dans les crédits).
+
+Le jeu n'est pas très bien référencé à l'heure actuelle (si vous cherchez "Ace of Space" sur le Google Play Store vous ne le trouverez pas, cherchez plutôt pour l'instant à "Zigaroula"), et c'est pour cette raison que j'ai besoin de vous :noel:
+
+Si le concept vous plait, n'hésitez pas à le télécharger, le tester et le noter. Cela m'aiderait grandement pour le faire un peu plus connaître. Le jeu possède également une page facebook : https://www.facebook.com/aceofspacegame/?fref=ts
+
+Je suis bien évidemment disponible pour répondre à toutes vos questions (concernant le jeu et son développement, hein :hap: ). Si vous avez des remarques, n'hésitez pas.
