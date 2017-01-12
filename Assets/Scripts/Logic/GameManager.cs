@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour {
 				unpausing = false;
 			}
 		}
+
+		if (Input.GetKeyDown (KeyCode.Escape) && !unpausing) {
+			PauseGame ();
+			uimanager.RequestQuitGame ();
+		}
 	}
 
 	public void GameOver() { // Game -> GameOver

@@ -96,10 +96,6 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			ShowUI (exitUI);
-		}
-
 		timeElapsed += Time.deltaTime;
 	}
 
@@ -220,6 +216,10 @@ public class UIManager : MonoBehaviour {
 			finalScoreString += "\n\n<color=yellow>Personal best !</color>";
 		}
 		ScoreGOText.GetComponent<Text> ().text = finalScoreString;
+	}
+
+	public void RequestQuitGame() {
+		ShowUI (exitUI);
 	}
 
 	public void QuitGame() {
