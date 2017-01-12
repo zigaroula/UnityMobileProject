@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
 	private GameObject[] infoUI;
 	private GameObject[] settingsUI;
 	private GameObject[] exitUI;
+	private GameObject[] rateUI;
 	public GameObject ScoreText;
 	public GameObject HighestScoreText;
 	public GameObject UnpauseText;
@@ -32,6 +33,9 @@ public class UIManager : MonoBehaviour {
 	private float gameOveringTimer = 2.0f;
 	private float timeElapsed = 0.0f;
 
+	private int rateCount = 0;
+	private int rateCountMax;
+
 	void Start() {
 		menuUI = GameObject.FindGameObjectsWithTag ("MenuUI");
 		gameUI = GameObject.FindGameObjectsWithTag ("GameUI");
@@ -41,6 +45,7 @@ public class UIManager : MonoBehaviour {
 		infoUI = GameObject.FindGameObjectsWithTag ("InfoUI");
 		settingsUI = GameObject.FindGameObjectsWithTag ("SettingsUI");
 		exitUI = GameObject.FindGameObjectsWithTag ("ExitUI");
+		rateUI = GameObject.FindGameObjectsWithTag ("RateUI");
 		ShowUI (menuUI);
 		HideUI (gameUI);
 		HideUI (pauseUI);
@@ -49,6 +54,9 @@ public class UIManager : MonoBehaviour {
 		HideUI (infoUI);
 		HideUI (settingsUI);
 		HideUI (exitUI);
+		HideUI (rateUI);
+
+		rateCountMax = Random.Range (5, 10);
 	}
 
 	void Update() {
@@ -84,6 +92,8 @@ public class UIManager : MonoBehaviour {
 					AdManager.GameOver ();
 					timeElapsed = 0.0f;
 					gameOverCount = 0;
+				} else if (gameOveringTimer <= 1.0f && rateCount >= rateCountMax && PlayerPrefs.GetInt ("RateApp") != -1) {
+					ShowUI (rateUI);
 				}
 				gameOverAdRequested = false;
 			}
@@ -106,6 +116,7 @@ public class UIManager : MonoBehaviour {
 			ShowUI (gameOverUI);
 			gameOvering = true;
 			gameOverAdRequested = true;
+			rateCount++;
 		}
 	}
 
@@ -228,6 +239,24 @@ public class UIManager : MonoBehaviour {
 
 	public void CancelQuitGame() {
 		HideUI (exitUI);
+	}
+
+	public void RateApp() {
+		Application.OpenURL ("market://details?id=com.Zigaroula.AceofSpace");
+		PlayerPrefs.SetInt ("RateApp", -1);
+		PlayerPrefs.Save ();
+		HideUI (rateUI);
+	}
+
+	public void RateLater() {
+		rateCount = -10000;
+		HideUI (rateUI);
+	}
+
+	public void RateNever() {
+		PlayerPrefs.SetInt ("RateApp", -1);
+		PlayerPrefs.Save ();
+		HideUI (rateUI);
 	}
 
 	private void ShowUI(GameObject[] arrayUI) {
