@@ -7,7 +7,7 @@ public class ObstacleMove : MonoBehaviour {
 	private Vector3 initialPosition;
 	public float ObstacleHeight;
 
-	public enum ObstacleType {Saw, Laser, Box, Z, Asteroid, Sun, Planet};
+	public enum ObstacleType {Saw, Laser, Box, Z, Asteroid, Sun, Planet, Rotate};
 	public ObstacleType Type;
 
 	// Use this for initialization
@@ -59,7 +59,10 @@ public class ObstacleMove : MonoBehaviour {
 			}
 		} else if (Type == ObstacleType.Sun) {
 			int pos = Random.Range (0, 2);
-			transform.position = new Vector3 ((pos==1 ? -1 : 1) * 9, transform.position.y, transform.position.z);
+			transform.position = new Vector3 ((pos == 1 ? -1 : 1) * 9, transform.position.y, transform.position.z);
+		} else if (Type == ObstacleType.Rotate) {
+			int dir = Random.Range (0, 2);
+			transform.localScale = new Vector3 ((dir == 1 ? -1 : 1) * transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		}
 	}
 }
