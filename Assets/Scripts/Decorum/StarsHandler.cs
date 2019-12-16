@@ -21,8 +21,8 @@ public class StarsHandler : MonoBehaviour {
 		gameObject.GetComponent<ParticleSystem> ().GetParticles(particles);
 		for (int i = 0; i < particles.Length; i++) {
 			particles[i].velocity = new Vector3(0.0f, 0.0f, 10.0f * speed);
-			if (particles [i].velocity.z == 0.0f && particles [i].lifetime <= 1.0f) {
-				particles [i].lifetime += 5;
+			if (particles [i].velocity.z == 0.0f && particles [i].remainingLifetime <= 1.0f) {
+				particles [i].remainingLifetime += 5;
 			}
 		}
 		gameObject.GetComponent<ParticleSystem> ().SetParticles(particles, numParticles);
